@@ -1,0 +1,113 @@
+table.des_table {
+    line-height: 15.6px;
+    width: 100%;
+    margin: 0 auto;
+}
+table.des_table  td{
+    border: 1px solid;
+}
+
+td{
+    background: yellow;
+}
+td.table_des_td {
+    min-width: 30px;
+    padding: 5px;
+}
+
+td.table_des_td_voice {
+    padding: 2px;
+    width: 42px;
+}
+
+textarea {
+    width: 94%;
+    height: 500px;
+    margin: 0 auto;
+    display: block;
+}
+
+.for_hamid {
+    margin: 20px auto;
+    text-align: center;
+    display: inline-block;
+    width: 30%;
+}
+
+textarea.codes {
+    width: 80%;
+    height: 200px;
+}
+.for_back_trn {
+    display: inline-block;
+    width: 30%;
+    vertical-align: top;
+}
+.trn_red {
+    color: blue;
+    width: 100%;
+    display: block;
+    margin: 10px auto;
+    max-height: 225px;
+}
+
+.trn_blue {
+    color: blue;
+    padding: 9px;
+    margin: 10px;
+    width: 40%;
+}
+
+.headline {
+    display: inline-block;
+    width: 50%;
+}
+textarea.new_html {
+    display: inline-block;
+    width: 48%;
+    vertical-align: top;
+}
+
+td.td_trn {
+    background: green;
+}
+
+.for_download_voice {
+    text-align: center;
+    display: inline-block;
+    width: 30%;
+    vertical-align: top;
+}
+iframe{
+    display: none;
+}
+.header {
+    position: fixed;
+    width: 100%;
+    background: antiquewhite;
+    text-align: center;
+    top:0;
+    z-index: 1;
+}
+.container {
+    padding-top: 300px;
+}
+body{
+    margin: 0;
+    padding-bottom: 100px;
+}
+.do_changes {
+    text-align: center;
+    margin: 20px;
+}
+.header .for_hamid {
+    display: inline-block;
+    margin: 30px 10px;
+    width: auto;
+}
+#englishtwn{
+    width: 100%;
+    height: 300px;
+    display: inline-block;
+    margin-top: 150px;
+}

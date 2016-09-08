@@ -1,0 +1,16 @@
+1
+00:00:30,342 --> 00:00:33,082
+I came from city
+Je suis venu de la ville
+
+2
+00:00:33,202 --> 00:00:36,530
+do you play football?
+ne vous jouez au football?
+
+3
+00:00:36,650 --> 00:00:39,965
+to pay rent
+de payer le loyer
+
+/_jcr_content/renditions/s.mp4

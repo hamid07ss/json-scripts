@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link href="style.css" rel="stylesheet"/>
+    <link href="../lib/bootstrap.css" rel="stylesheet"/>
+
+    <script type="text/javascript" src="../lib/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="script.js"></script>
+    <script type="text/javascript" src="../lib/drag.js"></script>
+</head>
+<body>
+<div class="header">
+    <div class="for_hamid">
+        course:
+        <select class="select_course">
+            <option>course</option>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+            <option>6</option>
+            <option>7</option>
+            <option>8</option>
+            <option>9</option>
+            <option>10</option>
+            <option>11</option>
+            <option>12</option>
+            <option>13</option>
+            <option>14</option>
+            <option>15</option>
+            <option>16</option>
+        </select>
+        unit:
+        <select class="select_unit">
+            <option>unit</option>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+            <option>6</option>
+        </select>
+        lesson:
+        <select class="select_lesson">
+            <option>lesson</option>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+        </select>
+        step:
+        <select class="select_step">
+            <option>step</option>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+        </select>
+        question:
+        <select class="select_question">
+            <option>question</option>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+            <option>6</option>
+        </select>
+    </div>
+
+    <div class="for_hamid">
+        <span class="for_submit">for do</span>
+        <input type="submit" class="submit" value="do work"/>
+    </div>
+    <div class="for_hamid">
+        <span class="for_submit">for do</span>
+        <input type="submit" class="final" value="translate">
+    </div>
+    <div class="download_all for_hamid">
+        <input type="submit" value="download all voices" class="down_all" onclick="down_all()">
+    </div>
+</div>
+
+<div class="contain">
+    <iframe name="download_mp3" id="download_mp3" class="download_mp3"></iframe>
+    <div class="get">
+        <span>insert json</span>
+        <textarea class="get_json"></textarea>
+    </div>
+</div>
+</body>
+</html>

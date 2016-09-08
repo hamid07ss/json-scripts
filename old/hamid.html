@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link rel="stylesheet" href="mediaelementplayer.css" />
+
+    <script src="jquery-1.11.3.min.js"></script>
+    <script src="mediaelement-and-player.min.js"></script>
+</head>
+<body>
+<div class="en_hamid"></div>
+<script>
+    var html_trn = [];
+    var hamid = function () {
+        $('.headline').html($('textarea.codes').val())
+        $('.for_back_trn').html('');
+        $('.for_download_voice').html('');
+
+        var down_voice = 0;
+        $('.headline .ets-act-ap-wrap').each(function () {
+            down_voice++;
+            $('.for_download_voice').append('<form method="POST" action="http://localhost:65321/MEng/hamid.php?dir=' + $(".voice_dir").val() + '&url=' + $(this).attr("data-src") + '&name=' + down_voice + '.mp3" target="download_mp3">' +
+                    '<input type="submit" value="download voice ' + down_voice + '" onclick="$(this).css(\'background\', \'#52d252\')">' +
+                    '</form>');
+        });
+
+        $('.headline *').removeAttr('style');
+        $('.headline *').removeAttr('class');
+        $('table').addClass('des_table');
+
+        var voice = 0;
+        var bool_row_ok = true;
+        show_tds();
+        $('.headline table').each(function () {
+            $(this).find('tr').each(function () {
+                var td = $(this).find('td');
+                $(this).find('[data-src]').parents('td').addClass('table_des_td_voice').html('');
+                for (var i = 0; i < td.length; i++) {
+                    if ($(td[i]).hasClass('table_des_td_voice')) {
+                        voice++;
+                        var voice_dir = $('.voice_dir').val();
+                        $(td[i]).append('<audio controls="" class="no-bar small">'
+                                + '<source src="/data/C01/leveldesc/' + voice_dir + '/' + voice + '.mp3" type="audio/mp3"></audio>');
+                    }
+                }
+            });
+        });
+        $('.headline strong').each(function () {
+            var str = $(this);
+            if ($(str).parents('table').length == 0 && $(str).parents('p').length == 0 && $(str).text().trim() != "") {
+                var txt = $(this).text().toLowerCase();
+                var dir_txt = $('.hamid').val().toLowerCase();
+                var final_txt = '<trn>' + dir_txt + txt.trim().replace(/[\t\n]+/g, ' ').replace(/ /g, '').substring(0, 30) + '</trn>';
+                var arr = {
+                    txt_for: dir_txt + txt.trim().replace(/[\t\n]+/g, ' ').replace(/ /g, '').substring(0, 30),
+                    txt_trn: $(this).html().trim()
+                };
+                html_trn.push(arr);
+                $(this).html(final_txt).addClass('table_des_td');
+            }
+        });
+
+        $('.headline p').each(function () {
+            var str = $(this);
+            if ($(str).parents('table').length == 0 && $(str).text().trim() != "") {
+                var txt = $(this).text().toLowerCase();
+                var dir_txt = $('.hamid').val().toLowerCase();
+                var final_txt = '<trn>' + dir_txt + txt.trim().replace(/[\t\n]+/g, ' ').replace(/ /g, '').substring(0, 30) + '</trn>';
+                var arr = {
+                    txt_for: dir_txt + txt.trim().replace(/[\t\n]+/g, ' ').replace(/ /g, '').substring(0, 30),
+                    txt_trn: $(this).html().trim()
+                };
+                html_trn.push(arr);
+                $(this).html(final_txt).addClass('table_des_td');
+            }
+        });
+
+        $('.new_html').val($('.headline').html());
+
+        var val_trn = '';
+
+        for (var j = 0; j < html_trn.length; j++) {
+            val_trn += '$string[\'' + html_trn[j].txt_for.toString().replace(/(['"])/g, "\\$1") + '\']=\'' + html_trn[j].txt_trn.toString().replace(/(['"])/g, "\\$1") + '\';' + "\n";
+        }
+
+        $('.for_back_trn').append('<div><textarea class="trn_red" ></textarea></div>');
+        $('.trn_red').text(val_trn);
+
+        console.log(html_trn);
+    };
+
+
+    var down_all = function () {
+        var forms = $('form');
+        var downloaded = 0;
+        var testtt = setInterval(function () {
+            $(forms[downloaded]).find('input').click();
+            downloaded++;
+            if (downloaded >= forms.length) {
+                clearInterval(testtt);
+            }
+        }, 1000);
+    };
+
+    var show_tds = function (e) {
+        $('.headline td').each(function () {
+            $(this).click(function () {
+                $(this).toggleClass('td_trn');
+            });
+        });
+    };
+
+    $(window).load(function(){
+        $('.submit').bind('click', function () {
+            hamid();
+        });
+        $('.final').bind('click', function () {
+            $('.headline td.td_trn').each(function () {
+                var txt = $(this).text().toLowerCase();
+                var dir_txt = $('.hamid').val().toLowerCase();
+                var final_txt = '<trn>' + dir_txt + txt.trim().replace(/[\t\n]+/g, ' ').replace(/ /g, '').substring(0, 30) + '</trn>';
+                var arr = {
+                    txt_for: dir_txt + txt.trim().replace(/[\t\n]+/g, ' ').replace(/ /g, '').substring(0, 30),
+                    txt_trn: $(this).html().trim()
+                };
+                html_trn.push(arr);
+                $(this).html(final_txt).addClass('table_des_td');
+            });
+
+            $('.new_html').val($('.headline').html());
+
+
+            var val_trn = '';
+
+            for (var j = 0; j < html_trn.length; j++) {
+                val_trn += '$string[\'' + html_trn[j].txt_for.toString().replace(/(['"])/g, "\\$1") + '\']=\'' + html_trn[j].txt_trn.toString().replace(/(['"])/g, "\\$1") + '\';' + "\n";
+            }
+            $('.trn_red').text(val_trn);
+        });
+    });
+    var clear_all = function(){
+        html_trn = [];
+    };
+//    var set_url = function(){
+//        $('.englishtwn').attr('src', $('.url_add').val());
+//    };
+//    var set_codes = function(){
+//        var iframe = $('.englishtwn');
+//        $.ajax({
+//            url: 'http://englishlive.ef.com/school/studyplan#school/fb696bad-a582-4d7c-9dff-84a82468de35/fb696bad-a582-4d7c-9dff-84a82468de35/b54d9802-5f5e-4a99-aa5e-93984a386346/f9fec644-3802-4165-bfe8-09e1c8677307/8e663b02-36f3-40d5-951f-e0939627ba6e/5d06a210-74cd-4bbd-ae08-7c2a1bd9c63f/852a5cc1-bb7a-4479-a233-3d7a0e779696',
+//            type: "GET",
+//            success: function(res) {
+//                var data = $(res.responseText).find('.content').text();
+//                $('.xCodes').html(data);
+//            }
+//        }).done(function(data){
+//            console.log(data);
+//        })
+//    }
+</script>
+
+<style>
+    table.des_table {
+        line-height: 15.6px;
+        width: 100%;
+        margin: 0 auto;
+    }
+
+    td{
+        background: yellow;
+    }
+    td.table_des_td {
+        min-width: 30px;
+        padding: 5px;
+    }
+
+    td.table_des_td_voice {
+        padding: 2px;
+        width: 42px;
+    }
+
+    textarea {
+        width: 94%;
+        height: 500px;
+        margin: 0 auto;
+        display: block;
+    }
+
+    .for_hamid {
+        margin: 20px auto;
+        text-align: center;
+        display: inline-block;
+        width: 30%;
+    }
+
+    textarea.codes {
+        width: 80%;
+        height: 200px;
+    }
+    .for_back_trn {
+        display: inline-block;
+        width: 30%;
+        vertical-align: top;
+    }
+    .trn_red {
+        color: blue;
+        width: 100%;
+        display: block;
+        margin: 10px auto;
+        max-height: 225px;
+    }
+
+    .trn_blue {
+        color: blue;
+        padding: 9px;
+        margin: 10px;
+        width: 40%;
+    }
+
+    .headline {
+        display: inline-block;
+        width: 50%;
+    }
+    textarea.new_html {
+        display: inline-block;
+        width: 48%;
+        vertical-align: top;
+    }
+
+    td.td_trn {
+        background: green;
+    }
+
+    .for_download_voice {
+        text-align: center;
+        display: inline-block;
+        width: 30%;
+        vertical-align: top;
+    }
+    iframe{
+        display: none;
+    }
+    .header {
+        position: fixed;
+        width: 100%;
+        background: antiquewhite;
+        text-align: center;
+        top:0;
+    }
+    .container {
+         padding-top: 300px;
+     }
+    body{
+        margin: 0;
+        padding-bottom: 100px;
+    }
+    .do_changes {
+        text-align: center;
+        margin: 20px;
+    }
+    .header .for_hamid {
+        display: inline-block;
+        margin: 30px 10px;
+        width: auto;
+    }
+    #englishtwn{
+        width: 100%;
+        height: 300px;
+        display: inline-block;
+        margin-top: 150px;
+    }
+</style>
+<iframe name="download_mp3" id="download_mp3" class="download_mp3"></iframe>
+<!--<iframe name="englishtwn" id="englishtwn" class="englishtwn" src="http://englishlive.ef.com/en-wws/login/?reason=1#school/fb696bad-a582-4d7c-9dff-84a82468de35/fb696bad-a582-4d7c-9dff-84a82468de35/b54d9802-5f5e-4a99-aa5e-93984a386346/f9fec644-3802-4165-bfe8-09e1c8677307/8e663b02-36f3-40d5-951f-e0939627ba6e/5d06a210-74cd-4bbd-ae08-7c2a1bd9c63f/852a5cc1-bb7a-4479-a233-3d7a0e779696"></iframe>-->
+
+<div class="header">
+    <!--<div class="for_hamid">-->
+        <!--<span class="for_url">for url</span>-->
+        <!--<input class="url_add"/>-->
+        <!--<input class="url_sub" type="submit" onclick="set_url()"/>-->
+    <!--</div>-->
+    <!--<div class="for_hamid">-->
+        <!--<span class="for_url">if page loaded click here</span>-->
+        <!--<input class="url_sub" type="submit" onclick="set_codes()"/>-->
+    <!--</div>-->
+    <!--<br>-->
+    <div class="for_hamid">
+        <span class="for_voice">for voice direction</span>
+        <input class="voice_dir"/>
+    </div>
+
+    <div class="for_hamid">
+        <span class="for_trans">for translate</span>
+        <input class="hamid"/>
+    </div>
+
+    <div class="for_hamid">
+        <span class="for_submit">for do</span>
+        <input type="submit" class="submit" value="do work"/>
+    </div>
+    <div class="for_hamid">
+        <span class="for_submit">for do</span>
+        <input type="submit" class="final" value="translate">
+    </div>
+    <div class="download_all for_hamid">
+        <input type="submit" value="download all voices" class="down_all" onclick="down_all()">
+    </div>
+</div>
+<div class="container">
+    <video width="320" height="240">
+        <source src="s.mp4" type="video/mp4"/>
+        <track src="sub.srt" srclang="en" kind="subtitles">
+    </video>
+    <div class="clear" style="text-align: center">
+        <input type="submit" value="clear all" onclick="clear_all()" />
+    </div>
+    <div class="for_hamid">
+        <span class="for_codes">for html codes</span>
+        <textarea class="codes" id="codes"></textarea>
+    </div>
+    <div class="for_back_trn"></div>
+    <div class="for_download_voice"></div>
+
+    <div class="do_changes">
+        <input class="changes" title="change" value="sow changes" type="submit"/>
+    </div>
+
+    <textarea class="new_html"></textarea>
+
+    <div class="headline"></div>
+</div>
+</body>
+</html>
